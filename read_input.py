@@ -20,15 +20,23 @@ def read_input():
 	for i in range(n):
 		for letter in alphabet:
 			train_data.append(np.asarray(flatten_image(imread("chars74k-lite/chars74k-lite/"+letter+"/"+letter+"_"+str(i)+".jpg"))))
-			train_solutions.append(ord(letter))
+			train_data[-1] = np.divide(train_data[-1],255)
+			t=[0]*26#init all vectors to zero
+			t[ord(letter)-97] = 1
+			t = np.asarray(t)
+			train_solutions.append(t)
 	#
 	m=88
 	test_data=[]
 	test_solutions=[]
-	for i in range(n,m):
+	for j in range(n,m):
 		for letter in alphabet:
-			test_data.append(np.asarray(flatten_image(imread("chars74k-lite/chars74k-lite/"+letter+"/"+letter+"_"+str(i)+".jpg"))))
-			test_solutions.append(ord(letter))
+			test_data.append(np.asarray(flatten_image(imread("chars74k-lite/chars74k-lite/"+letter+"/"+letter+"_"+str(j)+".jpg"))))
+			test_data[-1] = np.divide(test_data[-1],255)
+			t=[0]*26#init all vectors to zero
+			t[ord(letter)-97] = 1
+			t = np.asarray(t)
+			test_solutions.append(t)
 	#
 	print(len(train_data))
 	print(len(train_solutions))
@@ -37,4 +45,4 @@ def read_input():
 	return train_data, train_solutions, test_data, test_solutions
 if __name__ == '__main__':
 	a,b,c,d=read_input()
-	print(len(a[0]))
+	#print(len(a[0]))
