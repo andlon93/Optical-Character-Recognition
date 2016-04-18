@@ -12,9 +12,9 @@ def flatten_image(image_array):
 #
 #print(flatten_image(imread("chars74k-lite/chars74k-lite/"+"a"+"/"+"a"+"_"+"0"+".jpg")))
 def read_input():
-	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y"]
 	#alphabet=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,17,19,20,21,2]
-	n=70
+	n=35
 	train_data=[]
 	train_solutions=[]
 	for i in range(n):
@@ -22,7 +22,7 @@ def read_input():
 			train_data.append(np.asarray(flatten_image(imread("chars74k-lite/chars74k-lite/"+letter+"/"+letter+"_"+str(i)+".jpg"))))
 			train_solutions.append(ord(letter))
 	#
-	m=88
+	m=44
 	test_data=[]
 	test_solutions=[]
 	for i in range(n,m):
