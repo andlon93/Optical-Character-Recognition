@@ -2,7 +2,7 @@ import theano
 from theano import tensor as T
 import numpy as np
 from scipy.misc import imsave
-from read_input import read_input
+from read_input import read_input, read_input_otsu
 import time
 #
 class ANN:
@@ -14,8 +14,8 @@ class ANN:
         #self.trX, self.trY = MNIST.readfile('training')
         #print (self.trY[0])
         #self.teX, self.teY = MNIST.readfile('testing')
-        self.trX, self.trY, self.teX, self.teY = read_input()
-        print(self.trX)
+        self.trX, self.trY, self.teX, self.teY = read_input_otsu()
+        #print(self.trX)
         #print (self.teX[0])
         self.make_nn(layers)
     #
