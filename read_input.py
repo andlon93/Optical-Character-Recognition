@@ -60,6 +60,48 @@ def read_input_otsu():
 	print(len(test_solutions))
 	return train_data, train_solutions, test_data, test_solutions
 ####
+def read_input_otsu_OLE():
+	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+	#alphabet=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,17,19,20,21,2]
+	n=70
+	train_data=[]
+	train_solutions=[]
+	for i in range(n):
+		for letter in alphabet:
+			image = imread("chars74k-lite/chars74k-lite/"+letter+"/"+letter+"_"+str(i)+".jpg")
+			img = np.asarray(image)
+			img.setflags(write=True)
+			thresh = threshold_otsu(img)
+			binary = image > thresh
+			binary = np.reshape(binary,(1,400))
+			train_data.append(np.asarray(binary[0]).astype(float))
+			#
+			train_solutions.append(ord(letter))
+	#print(train_data[0])
+	#train_data = threshold_otsu(train_data)
+	#print(train_data[0])
+	#
+	m=88
+	test_data=[]
+	test_solutions=[]
+	for j in range(n,m):
+		for letter in alphabet:
+			image = imread("chars74k-lite/chars74k-lite/"+letter+"/"+letter+"_"+str(j)+".jpg")
+			img = np.asarray(image)
+			img.setflags(write=True)
+			thresh = threshold_otsu(img)
+			binary = image > thresh
+			binary = np.reshape(binary,(1,400))
+			test_data.append(np.asarray(binary[0]).astype(float))
+			#
+			test_solutions.append(ord(letter))
+	#
+	print(len(train_data))
+	print(len(train_solutions))
+	print(len(test_data))
+	print(len(test_solutions))
+	return train_data, train_solutions, test_data, test_solutions
+####
 def read_input():
 	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y"]
 	#alphabet=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,17,19,20,21,2]
