@@ -161,6 +161,8 @@ def read_input_OLE():
 	print(len(test_data))
 	print(test_solutions)
 	return train_data, train_solutions, test_data, test_solutions
+
+
 if __name__ == '__main__':
 	a,b,c,d=read_input()
 
