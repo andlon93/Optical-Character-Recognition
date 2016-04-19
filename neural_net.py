@@ -4,9 +4,10 @@ import numpy as np
 from scipy.misc import imsave
 from read_input import read_input, read_input_otsu
 import time
+import matplotlib.pyplot as plt
 #
 class ANN:
-    def __init__(self, lr, layers):
+    def __init__(self, lr, layers, read):
 
         self.num_layers = len(layers)
         print ("Antall lag: ",self.num_layers+1)
@@ -14,7 +15,7 @@ class ANN:
         #self.trX, self.trY = MNIST.readfile('training')
         #print (self.trY[0])
         #self.teX, self.teY = MNIST.readfile('testing')
-        self.trX, self.trY, self.teX, self.teY = read_input_otsu()
+        self.trX, self.trY, self.teX, self.teY = read()
         #print(self.trX)
         #print (self.teX[0])
         self.make_nn(layers)
@@ -305,20 +306,22 @@ class ANN:
     #
     def training(self,numer_of_runs):
         skip = 2
-        #for i in range(numer_of_runs):
+        test_score=[]
+        train_score=[]
         x=True
         i=1
-        while x:
+        while i <= numer_of_runs:
             for start, end in zip(range(0, len(self.trX), skip), range(skip, len(self.trX), skip)):
                 cost = self.train(self.trX[start:end], self.trY[start:end])
             score=self.test_testset()
             print("Training phase #",i," score on test-set: ", score)
+            test_score.append(score)
+            train_score.append(self.test_trainset())
             i+=1
-            if score >0.97:
-                x=False
-        print("\n")
+        print("\n Etter ferdig trening:")
         print("score on test-set: ", self.test_testset())
         print("score on train-set: ", self.test_trainset())
+        return test_score, train_score
     #
     def blind_test(self, cases):
         nn_answers = []
@@ -353,10 +356,25 @@ def main():
     print("Testing set: ", (testing_acc/number_of_nets))
     print("Average compute time: ", (total_time/number_of_nets))
 #
-nn=ANN(0.1,[(400,100),(100,26)])
+epochs = 200
+nn=ANN(0.1,[(400,100),(100,26)],read_input_otsu)
 start=time.time()
-nn.training(50)
+otsu_test, otsu_train = nn.training(epochs)
 print("det tok: ",time.time()-start," aa trene nettet.")
-#MNIST.minor_demo(nn)
-#blind_cases = MNIST.read_demo_file("demo_prep")
-#nn.blind_test(blind_cases)
+#
+nn=ANN(0.1,[(400,100),(100,26)],read_input)
+start=time.time()
+scaling_test, scaling_train = nn.training(epochs)
+print("det tok: ",time.time()-start," aa trene nettet.")
+
+
+
+plt.plot(range(1,len(otsu_train)+1), otsu_train, label='Otsu training set')
+plt.plot(range(1,len(otsu_test)+1), otsu_test, label='Otsu test set')
+plt.plot(range(1,len(scaling_train)+1), scaling_train, label='Scaling training set')
+plt.plot(range(1,len(scaling_test)+1), scaling_test, label='Scaling test set')
+plt.legend(loc='lower right')
+plt.xlabel('epochs')
+plt.ylabel('Performance')
+plt.axis([0, epochs, 0, max(1.0,max(otsu_train))+0.05])
+plt.show()

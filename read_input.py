@@ -13,6 +13,7 @@ def flatten_image(image_array):
 #
 #print(flatten_image(imread("chars74k-lite/chars74k-lite/"+"a"+"/"+"a"+"_"+"0"+".jpg")))
 def read_input_otsu():
+	print("Otsu")
 	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 	#alphabet=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,17,19,20,21,2]
 	n=70
@@ -54,10 +55,10 @@ def read_input_otsu():
 			t = np.asarray(t)
 			test_solutions.append(t)
 	#
-	print(len(train_data))
+	'''print(len(train_data))
 	print(len(train_solutions))
 	print(len(test_data))
-	print(len(test_solutions))
+	print(len(test_solutions))'''
 	return train_data, train_solutions, test_data, test_solutions
 ####
 def read_input_otsu_OLE():
@@ -103,7 +104,12 @@ def read_input_otsu_OLE():
 	return train_data, train_solutions, test_data, test_solutions
 ####
 def read_input():
+<<<<<<< HEAD
 	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y"]
+=======
+	print("Scaling")
+	alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+>>>>>>> 056a49c09203093a2d2e8b6d093c3c0a16fb5453
 	#alphabet=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,17,19,20,21,2]
 	n=35
 	train_data=[]
@@ -132,7 +138,14 @@ def read_input():
 			t = np.asarray(t)
 			test_solutions.append(t)
 	#
+<<<<<<< HEAD
 
+=======
+	'''print(len(train_data))
+	print(len(train_solutions))
+	print(len(test_data))
+	print(len(test_solutions))'''
+>>>>>>> 056a49c09203093a2d2e8b6d093c3c0a16fb5453
 	return train_data, train_solutions, test_data, test_solutions
 ####
 def read_input_OLE():
